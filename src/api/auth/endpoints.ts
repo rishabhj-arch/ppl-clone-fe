@@ -10,7 +10,6 @@ interface SignInResponse {
     email: string;
   };
 }
-
 export const loginSignIn = async ({
   email,
   password,
