@@ -66,7 +66,7 @@ export const SignIn: React.FC = () => {
     };
 
     signIn(userData, {
-      onSuccess: (data) => {
+      onSuccess: (data: any) => {
         if (data.formatted.success) {
           localStorage.setItem("token", data.formatted.data.token);
           navigate("/admin/dashboard");

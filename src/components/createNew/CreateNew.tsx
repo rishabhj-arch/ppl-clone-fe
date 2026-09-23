@@ -8,7 +8,7 @@ import { useCreatePost } from "../../api/auth/hooks";
 import { Navbar } from "../../layouts/utils/Navbar";
 import DatePickerInput from "../shared/DatePicker/DatePickerInput";
 import ImageUpload from "../shared/ImageUpload";
-import InputTag from "../shared/InputTag";
+import InputTag, { normalizeTags } from "../shared/InputTag";
 import { TextEditor } from "../shared/TextEditor";
 
 export const CreateNew = () => {
@@ -147,8 +147,9 @@ export const CreateNew = () => {
 
   const handleSetTags = (newTags: string[]) => {
     setSubmitting(false);
-    setTags(newTags);
-    if (newTags.length > 0) {
+    const uniqueTags = normalizeTags(newTags);
+    setTags(uniqueTags);
+    if (uniqueTags.length > 0) {
       setTagsError(null);
     }
   };

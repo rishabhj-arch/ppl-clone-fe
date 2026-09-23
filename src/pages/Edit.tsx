@@ -6,7 +6,7 @@ import { Navbar } from "../layouts/utils/Navbar";
 import ImageUpload from "../components/shared/ImageUpload";
 import { ErrorIcon } from "../components/createNew/CreateNew";
 import DatePickerInput from "../components/shared/DatePicker/DatePickerInput";
-import InputTag from "../components/shared/InputTag";
+import InputTag, { normalizeTags } from "../components/shared/InputTag";
 import { TextEditor } from "../components/shared/TextEditor";
 import { IMAGE_URL } from "../api/config";
 import { toast } from "react-toastify";
@@ -49,7 +49,7 @@ const Edit = () => {
     setSelectedDate(post.date);
     setName(post.name);
     setTitle(post.title);
-    setTags(post.tag || []);
+    setTags(normalizeTags(post.tag || []));
 
     const image =
       post.media && post.media.length > 0 ? post.media[0].imageName : null;
@@ -203,8 +203,9 @@ const Edit = () => {
   };
 
   const handleSetTags = (newTags: string[]) => {
-    setTags(newTags);
-    if (newTags.length > 0) {
+    const uniqueTags = normalizeTags(newTags);
+    setTags(uniqueTags);
+    if (uniqueTags.length > 0) {
       setTagsError(null);
     }
   };

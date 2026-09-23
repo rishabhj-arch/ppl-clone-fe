@@ -44,7 +44,7 @@ export const useSearchData = (
       staleTime: 5000,
       refetchOnWindowFocus: false,
       retry: 1,
-      onError: (error) => {
+      onError: (error: unknown) => {
         console.error("Error fetching post data:", error);
       },
     }

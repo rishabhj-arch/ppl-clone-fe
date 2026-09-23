@@ -6,6 +6,23 @@ interface InputTagProps {
   error?: string | null;
   isLoading?: boolean | undefined;
 }
+
+export const normalizeTags = (tags: string[]): string[] => {
+  const seen = new Set<string>();
+
+  return tags.reduce<string[]>((uniqueTags, tag) => {
+    const normalizedTag = tag.trim();
+    const key = normalizedTag.toLowerCase();
+
+    if (normalizedTag && !seen.has(key)) {
+      seen.add(key);
+      uniqueTags.push(normalizedTag);
+    }
+
+    return uniqueTags;
+  }, []);
+};
+
 const InputTag: React.FC<InputTagProps> = ({
   tags = [],
   setTags,
@@ -20,8 +37,13 @@ const InputTag: React.FC<InputTagProps> = ({
   };
 
   const handleAddition = (tag: any) => {
-    if (!isLoading && tags.length < Max_tag && tag.text.trim() !== "") {
-      setTags([...tags, tag.text]);
+    const newTag = tag.text.trim();
+    const hasDuplicate = tags.some(
+      (existingTag) => existingTag.trim().toLowerCase() === newTag.toLowerCase()
+    );
+
+    if (!isLoading && tags.length < Max_tag && newTag && !hasDuplicate) {
+      setTags(normalizeTags([...tags, newTag]));
     }
   };
 
