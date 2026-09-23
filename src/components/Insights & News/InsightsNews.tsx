@@ -166,7 +166,7 @@ export const InsightsNews: React.FC<InsightsNewsProps> = ({
                   : null;
               return (
                 <div key={idx} className="max-w-[396px] w-full">
-                  <div className="relative h-[197px] lg:h-[200px] xl:h-[270px] flex flex-col items-end">
+                  <div className="relative w-full overflow-hidden bg-[#f5f5f5]">
                     {!isLoaded && (
                       <p
                         style={{ transform: "translate(-50%,-50%)" }}
@@ -178,7 +178,7 @@ export const InsightsNews: React.FC<InsightsNewsProps> = ({
                     <img
                       src={image ? (image.startsWith("http") ? image : `${IMAGE_URL}/${image}`) : ""}
                       alt="PostImg"
-                      className={`w-full h-full min-h-[197px] lg:min-h-[200px] xl:min-h-[270px] max-h-[197px] lg:max-h-[200px] xl:max-h-[270px] cursor-pointer object-cover transition-opacity duration-500 ${
+                      className={`block w-full h-auto cursor-pointer object-contain transition-opacity duration-500 ${
                         isLoaded ? "opacity-100" : "opacity-0"
                       }`}
                       onClick={() =>
@@ -186,17 +186,14 @@ export const InsightsNews: React.FC<InsightsNewsProps> = ({
                       }
                       onLoad={() => setIsLoaded(true)}
                     />
-                    <div className="relative bottom-[35px] md:bottom-[37px] lg:bottom-[52px] xl:bottom-[55px] flex p-3 md:py-[13px] md:px-[17px] bg-[#3B3C43] w-[150px] lg:w-[184px] lg:p-5 md:w-[135px] justify-between">
-                      <p className="tab:text-[8px] text-[7px] lg:text-[10px] text-white font-Montserrat font-semibold truncate">
-                        {data.name}
-                      </p>
-                      <span className="tab:text-[8px] text-[7px] lg:text-[10px] text-white mx-[3px] font-Montserrat font-semibold">
-                        |
-                      </span>
-                      <p className="tab:text-[8px] text-[7px] lg:text-[10px] text-white font-Montserrat font-semibold whitespace-nowrap">
-                        {formatDate(data.date)}
-                      </p>
-                    </div>
+                  </div>
+                  <div className="flex w-full items-center justify-between gap-3 bg-[#3B3C43] px-3 py-3 md:px-[17px] md:py-[13px] lg:px-5 lg:py-4">
+                    <p className="min-w-0 truncate text-[9px] tab:text-[10px] lg:text-[12px] text-white font-Montserrat font-semibold">
+                      {data.name}
+                    </p>
+                    <p className="shrink-0 text-[9px] tab:text-[10px] lg:text-[12px] text-white font-Montserrat font-semibold whitespace-nowrap">
+                      {formatDate(data.date)}
+                    </p>
                   </div>
                   <div className="flex flex-wrap gap-[10px] mt-[10px]">
                     {data.tag.map((tag, index) => (
